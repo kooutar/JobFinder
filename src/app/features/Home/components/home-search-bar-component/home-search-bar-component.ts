@@ -7,7 +7,7 @@ import { SharedModule } from '../../../../shared/shared/shared-module';
 
 @Component({
   selector: 'app-home-search-bar-component',
-  imports: [SharedModule,Navbar],
+  imports: [SharedModule],
   templateUrl: './home-search-bar-component.html',
   styleUrl: './home-search-bar-component.css',
 })

@@ -1,5 +1,7 @@
 import { Routes } from '@angular/router';
 import { HomeSearchBarComponent } from './features/Home/components/home-search-bar-component/home-search-bar-component';
+import { Registre } from './features/auth/registre/registre';
+import { Login } from './features/auth/login/login';
 
 
 export const routes: Routes = [
@@ -12,7 +14,15 @@ export const routes: Routes = [
     path: 'home',
     component: HomeSearchBarComponent
   },
- 
+
+ {
+    path:'registre',
+    component: Registre
+ },
+ {
+    path:'login',
+    component:Login
+ },
   {
     path: '**',
     redirectTo: '/home'
