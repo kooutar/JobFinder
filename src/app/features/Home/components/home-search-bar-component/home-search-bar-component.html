@@ -1,0 +1,122 @@
+<app-navbar></app-navbar>
+
+<!-- src/app/features/home/home.component.html -->
+<main class="flex-1">
+  <!-- Hero Section -->
+  <section class="relative py-20 lg:py-32 overflow-hidden">
+    <!-- Gradient Background -->
+    <div class="absolute inset-0 -z-10 bg-gradient-to-br from-blue-50 via-white to-blue-50"></div>
+    
+    <div class="container-custom">
+      <div class="max-w-4xl mx-auto text-center">
+        <!-- Hero Title -->
+        <h1 class="text-5xl md:text-6xl font-black tracking-tight text-gray-900 mb-6">
+          Find Your <span class="text-blue-600">Dream Job</span>
+        </h1>
+        
+        <!-- Hero Subtitle -->
+        <p class="text-lg md:text-xl text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed">
+          Connect with thousands of employers and find the perfect role that matches your skills and passion. 
+          Your next career move starts here.
+        </p>
+         <p>seach bar</p>
+        <!-- Search Bar -->
+         <!-- <app-home-search-bar
+          [(keyword)]="searchKeyword"
+          [(location)]="searchLocation"
+          (search)="onSearch()">
+        </app-home-search-bar>  -->
+
+        <!-- Popular Searches -->
+        <div class="mt-8 flex flex-wrap justify-center gap-4 text-sm text-gray-500">
+          <span class="font-medium">Popular:</span>
+          <a 
+            *ngFor="let search of popularSearches"
+            class="hover:text-blue-600 underline underline-offset-4 cursor-pointer transition-colors">
+            {{ search }}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats/Logos Section -->
+  <section class="py-12 border-y border-gray-200 bg-white">
+    <div class="container-custom">
+      <div class="flex flex-wrap justify-center items-center gap-12 grayscale opacity-60">
+        <img 
+          *ngFor="let logo of companyLogos; let i = index"
+          [src]="logo"
+          [alt]="'Company logo ' + (i + 1)"
+          class="h-8 object-contain"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="py-24 bg-gray-50">
+    <div class="container-custom">
+      <!-- Section Header -->
+      <div class="mb-16">
+        <h2 class="text-3xl font-black text-gray-900 mb-4">Our Core Features</h2>
+        <p class="text-gray-600 max-w-xl">
+          Everything you need to land your next role in one place. We've streamlined the process 
+          so you can focus on what matters.
+        </p>
+      </div>
+
+      <!-- Features Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <h1 class="text-5xl md:text-6xl font-black tracking-tight text-gray-900 mb-6">
+          Features Grid
+        </h1>
+        
+        <!-- <app-feature-card
+          *ngFor="let feature of features"
+          [icon]="feature.icon"
+          [title]="feature.title"
+          [description]="feature.description">
+        </app-feature-card> -->
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-20 relative">
+    <div class="container-custom">
+      <div class="max-w-5xl mx-auto">
+        <div class="relative bg-gray-900 rounded-3xl overflow-hidden p-12 md:p-20 text-center">
+          <!-- Decorative Background -->
+          <div class="absolute top-0 right-0 w-64 h-64 bg-blue-600/20 rounded-full blur-3xl -mr-32 -mt-32"></div>
+          <div class="absolute bottom-0 left-0 w-64 h-64 bg-blue-600/10 rounded-full blur-3xl -ml-32 -mb-32"></div>
+
+          <!-- CTA Content -->
+          <div class="relative z-10">
+            <h2 class="text-4xl md:text-5xl font-black text-white mb-6">
+              Ready to start your journey?
+            </h2>
+            <p class="text-gray-300 text-lg mb-10 max-w-2xl mx-auto">
+              Join over 500,000+ job seekers who found their next career milestone with JobFinder. 
+              It only takes 2 minutes to get started.
+            </p>
+
+            <!-- CTA Buttons -->
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+              <button 
+                (click)="navigateToSignUp()"
+                class="btn-primary btn-lg">
+                Get Started Now
+              </button>
+              <button 
+                (click)="navigateToJobs()"
+                class="btn-secondary btn-lg bg-white/10 hover:bg-white/20 text-white border-white/20 backdrop-blur-sm">
+                Explore Jobs
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
