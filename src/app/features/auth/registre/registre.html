@@ -15,26 +15,79 @@
 
     <!-- Register Card -->
     <div class="card">
-      <form class="space-y-5">
+      <!-- Error Message -->
+      <div *ngIf="errorMessage()" class="alert alert-error mb-4">
+        {{ errorMessage() }}
+      </div>
+
+      <!-- Success Message -->
+      <div *ngIf="successMessage()" class="alert alert-success mb-4">
+        {{ successMessage() }}
+      </div>
+
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="space-y-5">
         <!-- Full Name -->
         <div class="form-group">
-          <label for="fullName" class="label label-required">Full Name</label>
-          <input type="text" id="fullName" placeholder="John Doe" class="input" required />
+          <label for="name" class="label label-required">Full Name</label>
+          <input
+            type="text"
+            id="name"
+            formControlName="name"
+            placeholder="John Doe"
+            class="input"
+            [class.input-error]="
+              registerForm.get('name')?.invalid && registerForm.get('name')?.touched
+            "
+          />
+          <span
+            *ngIf="registerForm.get('name')?.invalid && registerForm.get('name')?.touched"
+            class="error-message"
+          >
+            {{ getErrorMessage('name') }}
+          </span>
         </div>
 
         <!-- Email -->
         <div class="form-group">
           <label for="email" class="label label-required">Email Address</label>
-          <input type="email" id="email" placeholder="you@example.com" class="input" required />
+          <input
+            type="email"
+            id="email"
+            formControlName="email"
+            placeholder="you@example.com"
+            class="input"
+            [class.input-error]="
+              registerForm.get('email')?.invalid && registerForm.get('email')?.touched
+            "
+          />
+          <span
+            *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched"
+            class="error-message"
+          >
+            {{ getErrorMessage('email') }}
+          </span>
         </div>
 
         <!-- Password -->
         <div class="form-group">
           <label for="password" class="label label-required">Password</label>
-          <input type="password" id="password" placeholder="••••••••" class="input" required />
-          <p class="text-xs text-gray-500 mt-1.5">
-            Must be at least 8 characters with uppercase, lowercase, and numbers
-          </p>
+          <input
+            type="password"
+            id="password"
+            formControlName="password"
+            placeholder="••••••••"
+            class="input"
+            [class.input-error]="
+              registerForm.get('password')?.invalid && registerForm.get('password')?.touched
+            "
+          />
+          <span
+            *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched"
+            class="error-message"
+          >
+            {{ getErrorMessage('password') }}
+          </span>
+          <p class="text-xs text-gray-500 mt-1.5">Must be at least 8 characters</p>
         </div>
 
         <!-- Confirm Password -->
@@ -43,26 +96,29 @@
           <input
             type="password"
             id="confirmPassword"
+            formControlName="confirmPassword"
             placeholder="••••••••"
             class="input"
-            required
+            [class.input-error]="
+              registerForm.get('confirmPassword')?.invalid &&
+              registerForm.get('confirmPassword')?.touched
+            "
           />
-        </div>
-
-        <!-- Account Type -->
-        <div class="form-group">
-          <label for="accountType" class="label label-required">I am looking for</label>
-          <select id="accountType" class="select" required>
-            <option value="">Select option</option>
-            <option value="job">A Job</option>
-            <option value="talent">Talents</option>
-          </select>
+          <span
+            *ngIf="
+              registerForm.get('confirmPassword')?.invalid &&
+              registerForm.get('confirmPassword')?.touched
+            "
+            class="error-message"
+          >
+            {{ getErrorMessage('confirmPassword') }}
+          </span>
         </div>
 
         <!-- Terms Agreement -->
         <div class="form-group">
           <div class="flex items-start gap-3">
-            <input type="checkbox" id="terms" class="checkbox mt-1" required />
+            <input type="checkbox" id="terms" formControlName="terms" class="checkbox mt-1" />
             <label for="terms" class="text-sm text-gray-600 cursor-pointer">
               I agree to the
               <a href="/terms" class="font-medium text-blue-600 hover:text-blue-700">
@@ -77,7 +133,17 @@
         </div>
 
         <!-- Sign Up Button -->
-        <button type="submit" class="btn-primary w-full py-2.5 mt-6">Create Account</button>
+        <button
+          type="submit"
+          class="btn-primary w-full py-2.5 mt-6"
+          [disabled]="!registerForm.valid || isLoading()"
+        >
+          <span *ngIf="!isLoading()">Create Account</span>
+          <span *ngIf="isLoading()" class="flex items-center gap-2 justify-center">
+            <span class="spinner inline-block"></span>
+            Creating...
+          </span>
+        </button>
 
         <!-- Divider -->
         <div class="relative my-6">

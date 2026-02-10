@@ -8,10 +8,10 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 })
 export class Navbar implements OnInit, OnDestroy {
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    console.log('Navbar component initialized');
   }
 
   ngOnDestroy(): void {
-    throw new Error('Method not implemented.');
+    console.log('Navbar component destroyed');
   }
 }
