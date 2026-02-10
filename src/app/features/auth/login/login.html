@@ -15,11 +15,34 @@
 
     <!-- Login Card -->
     <div class="card">
-      <form class="space-y-5">
+      <!-- Error Message -->
+      <div *ngIf="errorMessage()" class="alert alert-error mb-4">
+        {{ errorMessage() }}
+      </div>
+
+      <!-- Success Message -->
+      <div *ngIf="successMessage()" class="alert alert-success mb-4">
+        {{ successMessage() }}
+      </div>
+
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-5">
         <!-- Email -->
         <div class="form-group">
           <label for="email" class="label label-required">Email Address</label>
-          <input type="email" id="email" placeholder="you@example.com" class="input" required />
+          <input
+            type="email"
+            id="email"
+            formControlName="email"
+            placeholder="you@example.com"
+            class="input"
+            [class.input-error]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched"
+          />
+          <span
+            *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched"
+            class="error-message"
+          >
+            {{ getErrorMessage('email') }}
+          </span>
         </div>
 
         <!-- Password -->
@@ -33,13 +56,26 @@
               Forgot?
             </a>
           </div>
-          <input type="password" id="password" placeholder="••••••••" class="input" required />
+          <input
+            type="password"
+            id="password"
+            formControlName="password"
+            placeholder="••••••••"
+            class="input"
+            [class.input-error]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+          />
+          <span
+            *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+            class="error-message"
+          >
+            {{ getErrorMessage('password') }}
+          </span>
         </div>
 
         <!-- Remember Me -->
         <div class="form-group">
           <div class="flex items-center gap-2">
-            <input type="checkbox" id="remember" class="checkbox" />
+            <input type="checkbox" id="remember" formControlName="remember" class="checkbox" />
             <label for="remember" class="text-sm text-gray-600 cursor-pointer">
               Keep me signed in
             </label>
@@ -47,7 +83,17 @@
         </div>
 
         <!-- Sign In Button -->
-        <button type="submit" class="btn-primary w-full py-2.5 mt-6">Sign In</button>
+        <button
+          type="submit"
+          class="btn-primary w-full py-2.5 mt-6"
+          [disabled]="!loginForm.valid || isLoading()"
+        >
+          <span *ngIf="!isLoading()">Sign In</span>
+          <span *ngIf="isLoading()" class="flex items-center gap-2 justify-center">
+            <span class="spinner inline-block"></span>
+            Signing in...
+          </span>
+        </button>
 
         <!-- Divider -->
         <div class="relative my-6">

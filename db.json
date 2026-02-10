@@ -1,7 +1,20 @@
 {
   "users": [
-    { "id": 1, "name": "Kaoutar", "email": "kaoutar@test.com" },
-    { "id": 2, "name": "Ahmed", "email": "ahmed@test.com" }
+    {
+      "id": "1",
+      "name": "Kaoutar",
+      "email": "kaoutar@test.com"
+    },
+    {
+      "id": "2",
+      "name": "Ahmed",
+      "email": "ahmed@test.com"
+    },
+    {
+      "id": "7406",
+      "name": "salma",
+      "email": "oussama3@test.com",
+      "password": "salma123456"
+    }
   ]
- 
 }

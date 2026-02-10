@@ -15,14 +15,11 @@ export const routes: Routes = [
     component: HomeSearchBarComponent
   },
 
- {
-    path:'registre',
-    component: Registre
- },
- {
-    path:'login',
-    component:Login
- },
+{
+    path: 'auth',
+    loadChildren: () =>
+      import('./features/auth/auth-routes').then(m => m.authRoutes)
+  },
   {
     path: '**',
     redirectTo: '/home'
