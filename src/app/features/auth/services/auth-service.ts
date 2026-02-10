@@ -13,12 +13,29 @@ export class AuthService {
     this.httpClient = httpClient;
   }
 
-  register(user: { name: string; email: string; password: string }):Observable<string> {
-    return this.httpClient.post<string>(this.API_URL, user);
+  register(user: { name: string; email: string; password: string }):Observable<any> {
+    return this.httpClient.post<any>(this.API_URL, user);
   }
+
+  login(credentials: { email: string; password: string }): Observable<any> {
+    return this.httpClient.get<any>(`${this.API_URL}?email=${credentials.email}&password=${credentials.password}`);
+  }
+
   checkUserExists(email: string): Observable<boolean> {
     return this.httpClient.get<boolean>(`${this.API_URL}/exists?email=${email}`);
   }
 
-  
+  logout(): void {
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('currentUser');
+  }
+
+  setCurrentUser(user: any): void {
+    localStorage.setItem('currentUser', JSON.stringify(user));
+  }
+
+  getCurrentUser(): any {
+    const user = localStorage.getItem('currentUser');
+    return user ? JSON.parse(user) : null;
+  }
 }
