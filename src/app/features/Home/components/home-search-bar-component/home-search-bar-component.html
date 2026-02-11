@@ -90,15 +90,36 @@
         </app-job-card-component>
       </div>
 
-      <!-- View All Jobs Button -->
+      <!-- Pagination -->
       <div 
-        *ngIf="!isLoadingJobs && featuredJobs.length > 0"
-        class="mt-12 text-center">
+        *ngIf="!isLoadingJobs && featuredJobs.length > 0 && totalPages > 1"
+        class="mt-12 flex justify-center items-center gap-2">
+        
         <button 
-          (click)="navigateToJobs()"
-          class="btn-primary btn-lg px-8">
-          View All Jobs
-          <span class="material-symbols-outlined ml-2">arrow_forward</span>
+          (click)="onPageChange(currentPage - 1)"
+          [disabled]="currentPage === 1"
+          class="pagination-btn flex items-center gap-1">
+          <span class="material-symbols-outlined text-lg">chevron_left</span>
+          Précédent
+        </button>
+
+        <div class="flex items-center gap-2 px-2">
+          <button 
+            *ngFor="let page of pages"
+            [class.pagination-btn-active]="currentPage === page"
+            [class.pagination-btn]="currentPage !== page"
+            (click)="onPageChange(page)"
+            class="w-10 h-10 flex items-center justify-center font-medium transition-colors">
+            {{ page }}
+          </button>
+        </div>
+
+        <button 
+          (click)="onPageChange(currentPage + 1)"
+          [disabled]="currentPage === totalPages"
+          class="pagination-btn flex items-center gap-1">
+          Suivant
+          <span class="material-symbols-outlined text-lg">chevron_right</span>
         </button>
       </div>
 

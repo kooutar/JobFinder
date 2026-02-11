@@ -23,6 +23,10 @@ export class HomeSearchBarComponent implements OnInit , OnDestroy {
   isLoadingJobs = false;
   jobsError = '';
 
+  // Pagination
+  currentPage = 1;
+  totalPages = 1;
+
   popularSearches = [
     'Software Engineer',
     'Product Designer', 
@@ -82,18 +86,26 @@ export class HomeSearchBarComponent implements OnInit , OnDestroy {
   /**
    * Load featured jobs to display on home page
    */
-  loadFeaturedJobs(): void {
+  loadFeaturedJobs(page: number = 1): void {
     this.isLoadingJobs = true;
     this.jobsError = '';
+    this.currentPage = page;
 
-    this.jobService.getJobsForDisplay(1)
+    this.jobService.getJobsForDisplay(page)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
-        next: (jobs: JobOfferDisplay[]) => {
-          // Take only first 6 jobs as featured
-          console.log("ana ", jobs)
-          this.featuredJobs = jobs.slice(0, 6);
+        next: (response) => {
+          this.featuredJobs = response.jobs;
+          this.totalPages = response.pagination.totalPages;
           this.isLoadingJobs = false;
+          
+          // Scroll to top of jobs section if not first load
+          if (page > 1) {
+             const jobsSection = document.getElementById('featured-jobs');
+             if (jobsSection) {
+               jobsSection.scrollIntoView({ behavior: 'smooth' });
+             }
+          }
         },
         error: (error: any) => {
           console.error('Error loading jobs:', error);
@@ -101,6 +113,30 @@ export class HomeSearchBarComponent implements OnInit , OnDestroy {
           this.isLoadingJobs = false;
         }
       });
+  }
+
+  onPageChange(page: number): void {
+    if (page >= 1 && page <= this.totalPages) {
+      this.loadFeaturedJobs(page);
+    }
+  }
+
+  get pages(): number[] {
+    const maxPages = 6;
+    const pages: number[] = [];
+    
+    let startPage = Math.max(1, this.currentPage - 2);
+    let endPage = Math.min(this.totalPages, startPage + maxPages - 1);
+    
+    if (endPage - startPage + 1 < maxPages) {
+      startPage = Math.max(1, endPage - maxPages + 1);
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
+      pages.push(i);
+    }
+    
+    return pages;
   }
 
   /**
@@ -149,4 +185,5 @@ export class HomeSearchBarComponent implements OnInit , OnDestroy {
         keyword: searchTerm
       }
     });
-  }}
+}
+}

@@ -5,6 +5,7 @@ import {
   JobOffer,
   JobOfferDisplay,
   JobSearchCriteria,
+  JobResponseDisplay,
 } from '../interfaces/job-offer.model';
 import { map, Observable, tap } from 'rxjs';
 
@@ -31,18 +32,39 @@ export class JobService {
 /**
  * Get jobs transformed for display
  */
-getJobsForDisplay(page: number = 1): Observable<JobOfferDisplay[]> {
+getJobsForDisplay(page: number = 1): Observable<JobResponseDisplay> {
   return this.getJobs(page).pipe(
-    tap(response => console.log('📦 Raw response before transform:', response)),
+
     map((response: JobApiResponse) => {
       // Changed from response.data to response.results
       if (!response.results || !Array.isArray(response.results)) {
-        console.warn('⚠️ No results in response or results is not an array');
-        return [];
+       
+        return {
+          jobs: [],
+          pagination: {
+            currentPage: 1,
+            totalPages: 1,
+            totalItems: 0
+          }
+        };
       }
+
+      // Sort by publication date (newest first)
+      response.results.sort((a, b) => {
+        return new Date(b.publication_date).getTime() - new Date(a.publication_date).getTime();
+      });
+
       const transformed = response.results.map((job) => this.transformJobForDisplay(job));
-      console.log('✨ Transformed jobs:', transformed);
-      return transformed;
+     
+      
+      return {
+        jobs: transformed,
+        pagination: {
+          currentPage: response.page || page,
+          totalPages: response.page_count || 1,
+          totalItems: response.total || transformed.length
+        }
+      };
     })
   );
 }

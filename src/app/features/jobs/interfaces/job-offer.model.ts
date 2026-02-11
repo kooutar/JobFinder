@@ -42,3 +42,12 @@ export interface JobOfferDisplay {
   tags: string[];
   jobTypes: string[];
 }
+
+export interface JobResponseDisplay {
+  jobs: JobOfferDisplay[];
+  pagination: {
+    currentPage: number;
+    totalPages: number;
+    totalItems: number;
+  };
+}
