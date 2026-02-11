@@ -51,7 +51,9 @@ getJobsForDisplay(page: number = 1): Observable<JobResponseDisplay> {
 
       // Sort by publication date (newest first)
       response.results.sort((a, b) => {
-        return new Date(b.publication_date).getTime() - new Date(a.publication_date).getTime();
+        const dateA = a.publication_date ? new Date(a.publication_date).getTime() : 0;
+        const dateB = b.publication_date ? new Date(b.publication_date).getTime() : 0;
+        return (isNaN(dateB) ? 0 : dateB) - (isNaN(dateA) ? 0 : dateA);
       });
 
       const transformed = response.results.map((job) => this.transformJobForDisplay(job));
