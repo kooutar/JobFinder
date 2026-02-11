@@ -15,6 +15,12 @@
       "name": "salma",
       "email": "oussama3@test.com",
       "password": "salma123456"
+    },
+    {
+      "id": "0c4b",
+      "name": "salma",
+      "email": "kaoutar@gmail.com",
+      "password": "123456789"
     }
   ]
 }

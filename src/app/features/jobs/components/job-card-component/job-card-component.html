@@ -1,0 +1,99 @@
+<!-- src/app/shared/components/job-card/job-card.component.html -->
+<div class="job-card group">
+  <!-- Header avec logo entreprise optionnel -->
+  <div class="flex items-start justify-between gap-3 mb-4">
+    <div class="flex-1 min-w-0">
+      <h3 class="job-title mb-1.5 group-hover:text-blue-600">
+        {{ job.title }}
+      </h3>
+      <p class="job-company mb-1">
+        {{ job.company }}
+      </p>
+    </div>
+    
+    <!-- Remote Badge -->
+    <span 
+      *ngIf="job.remote"
+      class="badge badge-blue flex-shrink-0">
+      <span class="material-symbols-outlined text-xs mr-1">home_work</span>
+      Remote
+    </span>
+  </div>
+
+  <!-- Location & Date avec icônes Material -->
+  <div class="flex items-center flex-wrap gap-x-4 gap-y-2 mb-4">
+    <div class="job-location">
+      <span class="material-symbols-outlined text-lg">location_on</span>
+      <span>{{ job.location }}</span>
+    </div>
+    <div class="flex items-center gap-1 text-sm text-gray-500">
+      <span class="material-symbols-outlined text-lg">schedule</span>
+      <span>{{ job.datePublished }}</span>
+    </div>
+  </div>
+
+  <!-- Description avec ellipsis -->
+  <p class="job-description mb-4 leading-relaxed">
+    {{ job.shortDescription }}
+  </p>
+
+  <!-- Tags & Job Types combinés -->
+  <div class="flex flex-wrap gap-2 mb-4">
+    <!-- Job Types en premier (plus importants) -->
+    <span 
+      *ngFor="let type of job.jobTypes"
+      class="badge">
+      {{ type }}
+    </span>
+    
+    <!-- Tags (max 3 + compteur) -->
+    <span 
+      *ngFor="let tag of job.tags?.slice(0, 3)"
+      class="badge badge-gray">
+      {{ tag }}
+    </span>
+    <span 
+      *ngIf="job.tags && job.tags.length > 3"
+      class="badge badge-gray">
+      +{{ job.tags.length - 3 }} more
+    </span>
+  </div>
+
+  <!-- Footer avec actions -->
+  <div class="card-footer flex items-center gap-2">
+    <!-- View Job Button principal -->
+    <button 
+      (click)="onViewJob()"
+      class="btn-primary btn-sm flex-1 group/btn">
+      <span>View Details</span>
+      <span class="material-symbols-outlined text-base ml-1 transition-transform group-hover/btn:translate-x-0.5">
+        arrow_forward
+      </span>
+    </button>
+
+    <!-- Actions secondaires (si authentifié) -->
+    <div *ngIf="showActions && isAuthenticated" class="flex items-center gap-1">
+      <!-- Favorite Button -->
+      <button 
+        (click)="onAddToFavorites($event)"
+        [class.text-red-600]="isFavorite"
+        [class.hover:bg-red-50]="isFavorite"
+        [title]="isFavorite ? 'Remove from favorites' : 'Add to favorites'"
+        class="icon-btn p-2 rounded-lg transition-all duration-200">
+        <span 
+          class="material-symbols-outlined text-xl"
+          [style.fontVariationSettings]="isFavorite ? '\'FILL\' 1, \'wght\' 500' : '\'FILL\' 0'">
+          favorite
+        </span>
+      </button>
+
+      <!-- Track Application Button -->
+      <button 
+        (click)="onTrackApplication($event)"
+        title="Track application"
+        class="icon-btn-primary p-2 rounded-lg">
+        <span class="material-symbols-outlined text-xl">add_task</span>
+      </button>
+    </div>
+  </div>
+</div>

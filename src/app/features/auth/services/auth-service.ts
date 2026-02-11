@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class AuthService {
   private API_URL = 'http://localhost:3000/users';
+  
   private httpClient:HttpClient;
 
   constructor(@Inject(HttpClient) httpClient:HttpClient) {

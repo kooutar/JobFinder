@@ -1,5 +1,3 @@
-<app-navbar></app-navbar>
-
 <!-- src/app/features/home/home.component.html -->
 <main class="flex-1">
   <!-- Hero Section -->
@@ -19,19 +17,20 @@
           Connect with thousands of employers and find the perfect role that matches your skills and passion. 
           Your next career move starts here.
         </p>
-         <p>seach bar</p>
+
         <!-- Search Bar -->
-         <!-- <app-home-search-bar
+        <!-- <app-home-search-bar-component
           [(keyword)]="searchKeyword"
           [(location)]="searchLocation"
           (search)="onSearch()">
-        </app-home-search-bar>  -->
+        </app-home-search-bar-component> -->
 
         <!-- Popular Searches -->
         <div class="mt-8 flex flex-wrap justify-center gap-4 text-sm text-gray-500">
           <span class="font-medium">Popular:</span>
           <a 
             *ngFor="let search of popularSearches"
+            (click)="onPopularSearchClick(search)"
             class="hover:text-blue-600 underline underline-offset-4 cursor-pointer transition-colors">
             {{ search }}
           </a>
@@ -54,8 +53,70 @@
     </div>
   </section>
 
-  <!-- Features Section -->
+  <!-- Featured Jobs Section -->
   <section class="py-24 bg-gray-50">
+    <div class="container-custom">
+      <!-- Section Header -->
+      <div class="mb-12 text-center">
+        <h2 class="text-3xl font-black text-gray-900 mb-4">Featured Job Openings</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">
+          Discover the latest opportunities from top companies worldwide. Start your journey today.
+        </p>
+      </div>
+
+      <!-- Loading State -->
+      <div *ngIf="isLoadingJobs" class="flex justify-center items-center py-20">
+        <div class="flex flex-col items-center gap-4">
+          <div class="spinner spinner-lg border-blue-600"></div>
+          <p class="text-gray-600">Loading amazing opportunities...</p>
+        </div>
+      </div>
+
+      <!-- Error State -->
+      <div *ngIf="jobsError && !isLoadingJobs" class="alert alert-error max-w-2xl mx-auto">
+        <span class="material-symbols-outlined">error</span>
+        <p>{{ jobsError }}</p>
+      </div>
+
+      <!-- Jobs Grid -->
+      <div 
+        *ngIf="!isLoadingJobs && !jobsError && featuredJobs.length > 0"
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <app-job-card-component
+          *ngFor="let job of featuredJobs"
+          [job]="job"
+          [showActions]="false"
+          (viewJob)="viewJobDetails(job)">
+        </app-job-card-component>
+      </div>
+
+      <!-- View All Jobs Button -->
+      <div 
+        *ngIf="!isLoadingJobs && featuredJobs.length > 0"
+        class="mt-12 text-center">
+        <button 
+          (click)="navigateToJobs()"
+          class="btn-primary btn-lg px-8">
+          View All Jobs
+          <span class="material-symbols-outlined ml-2">arrow_forward</span>
+        </button>
+      </div>
+
+      <!-- Empty State -->
+      <div 
+        *ngIf="!isLoadingJobs && !jobsError && featuredJobs.length === 0"
+        class="empty-state">
+        <div class="empty-state-icon">
+          <span class="material-symbols-outlined text-8xl">work_off</span>
+        </div>
+        <h3 class="empty-state-title">No jobs available right now</h3>
+        <p class="empty-state-text">Check back soon for new opportunities!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="py-24 bg-white">
     <div class="container-custom">
       <!-- Section Header -->
       <div class="mb-16">
@@ -68,22 +129,18 @@
 
       <!-- Features Grid -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <h1 class="text-5xl md:text-6xl font-black tracking-tight text-gray-900 mb-6">
-          Features Grid
-        </h1>
-        
-        <!-- <app-feature-card
+        <app-feature-card-component
           *ngFor="let feature of features"
           [icon]="feature.icon"
           [title]="feature.title"
           [description]="feature.description">
-        </app-feature-card> -->
+        </app-feature-card-component>
       </div>
     </div>
   </section>
 
   <!-- CTA Section -->
-  <section class="py-20 relative">
+  <section class="py-20 relative bg-gray-50">
     <div class="container-custom">
       <div class="max-w-5xl mx-auto">
         <div class="relative bg-gray-900 rounded-3xl overflow-hidden p-12 md:p-20 text-center">
@@ -120,4 +177,3 @@
     </div>
   </section>
 </main>
-<app-footer></app-footer>
