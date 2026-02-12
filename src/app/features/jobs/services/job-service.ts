@@ -23,7 +23,6 @@ export class JobService {
   const params = new HttpParams().set('page', page.toString());
   return this.httpClient.get<JobApiResponse>(`${this.Api_URL}`, { params }).pipe(
     tap((response) => {
-      console.log('✅ API Response:', response);
       console.log('📊 Jobs count:', response.results?.length); // Changed from data to results
     })
   );
