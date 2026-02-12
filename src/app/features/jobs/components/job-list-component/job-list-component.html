@@ -18,7 +18,7 @@
           </div>
           <input
             type="text"
-            
+             (input)="onSearch($event)"
             placeholder="Rechercher un poste, une entreprise..."
             class="block w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
           />
@@ -231,7 +231,7 @@
     </div>
 <app-pagination
   [total]="total"
-  [page]="page"
+  [itemsPerPage]="itemsPerPage"
   (pageChange)="onPageChange($event)">
 </app-pagination>
 
