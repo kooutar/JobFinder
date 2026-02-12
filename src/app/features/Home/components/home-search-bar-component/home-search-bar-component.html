@@ -17,13 +17,8 @@
           Connect with thousands of employers and find the perfect role that matches your skills and passion. 
           Your next career move starts here.
         </p>
-
-        <!-- Search Bar -->
-        <!-- <app-home-search-bar-component
-          [(keyword)]="searchKeyword"
-          [(location)]="searchLocation"
-          (search)="onSearch()">
-        </app-home-search-bar-component> -->
+        <search></search>
+       
 
         <!-- Popular Searches -->
         <div class="mt-8 flex flex-wrap justify-center gap-4 text-sm text-gray-500">
@@ -80,19 +75,14 @@
 
       <!-- Jobs Grid -->
       <div 
-        *ngIf="!isLoadingJobs && !jobsError && featuredJobs.length > 0"
+        *ngIf="!isLoadingJobs "
         class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <app-job-card-component
-          *ngFor="let job of featuredJobs"
-          [job]="job"
-          [showActions]="false"
-          (viewJob)="viewJobDetails(job)">
-        </app-job-card-component>
+        
       </div>
 
       <!-- Pagination -->
       <div 
-        *ngIf="!isLoadingJobs && featuredJobs.length > 0 && totalPages > 1"
+        *ngIf="!isLoadingJobs  && totalPages > 1"
         class="mt-12 flex justify-center items-center gap-2">
         
         <button 
@@ -125,7 +115,7 @@
 
       <!-- Empty State -->
       <div 
-        *ngIf="!isLoadingJobs && !jobsError && featuredJobs.length === 0"
+        *ngIf="!isLoadingJobs && !jobsError "
         class="empty-state">
         <div class="empty-state-icon">
           <span class="material-symbols-outlined text-8xl">work_off</span>

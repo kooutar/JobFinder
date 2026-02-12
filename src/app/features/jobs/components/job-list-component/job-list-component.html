@@ -1,0 +1,247 @@
+<div class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-7xl mx-auto">
+    <!-- Header -->
+    <div class="text-center mb-8">
+      <h1 class="text-4xl font-bold text-gray-900 mb-2">Offres d'emploi</h1>
+      <p class="text-gray-600">Trouvez votre prochaine opportunité</p>
+    </div>
+
+    <!-- Barre de recherche et filtres -->
+    <div class="bg-white rounded-xl shadow-md p-6 mb-8 border border-gray-200">
+      <!-- Recherche -->
+      <div class="mb-6">
+        <div class="relative">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            </svg>
+          </div>
+          <input
+            type="text"
+            
+            placeholder="Rechercher un poste, une entreprise..."
+            class="block w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
+          />
+          <button
+           
+            
+            class="absolute inset-y-0 right-0 pr-3 flex items-center"
+          >
+            <svg class="h-5 w-5 text-gray-400 hover:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Filtres -->
+      <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+        <!-- Filtre Type de contrat -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Type de contrat</label>
+          <select
+           
+            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
+          >
+            <option value="">Tous</option>
+            <option value="CDI">CDI</option>
+            <option value="CDD">CDD</option>
+            <option value="Stage">Stage</option>
+            <option value="Alternance">Alternance</option>
+            <option value="Freelance">Freelance</option>
+          </select>
+        </div>
+
+        <!-- Filtre Localisation -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Localisation</label>
+          <select
+           
+            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
+          >
+            <option value="">Toutes</option>
+            <option value="Paris">Paris</option>
+            <option value="Lyon">Lyon</option>
+            <option value="Marseille">Marseille</option>
+            <option value="Remote">Remote</option>
+            <option value="Bordeaux">Bordeaux</option>
+          </select>
+        </div>
+
+        <!-- Filtre Expérience -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Expérience</label>
+          <select
+           
+            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
+          >
+            <option value="">Tous niveaux</option>
+            <option value="junior">Junior (0-2 ans)</option>
+            <option value="confirme">Confirmé (3-5 ans)</option>
+            <option value="senior">Senior (5+ ans)</option>
+          </select>
+        </div>
+
+        <!-- Filtre Salaire -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Salaire min.</label>
+          <select
+           
+            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
+          >
+            <option value="">Tous</option>
+            <option value="30000">30K€+</option>
+            <option value="40000">40K€+</option>
+            <option value="50000">50K€+</option>
+            <option value="60000">60K€+</option>
+          </select>
+        </div>
+
+        <!-- Filtre Favoris -->
+        <div class="flex items-end">
+          <button
+            
+            class="w-full px-4 py-2 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2 hover:shadow-md"
+          >
+            <svg class="w-5 h-5"  fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+            </svg>
+            Favoris
+          </button>
+        </div>
+      </div>
+
+      <!-- Bouton Réinitialiser -->
+      <div class="mt-4 flex justify-end">
+        <button
+          
+          class="px-4 py-2 text-sm text-gray-600 hover:text-gray-900 font-medium transition-colors flex items-center gap-2"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+          </svg>
+          Réinitialiser les filtres
+        </button>
+      </div>
+    </div>
+
+    <!-- Résultats et compteur -->
+    <div class="flex items-center justify-between mb-6">
+      
+      
+      <!-- Tri -->
+      <select
+        
+        class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
+      >
+        <option value="recent">Plus récentes</option>
+        <option value="salary-high">Salaire décroissant</option>
+        <option value="salary-low">Salaire croissant</option>
+        <option value="company">Entreprise A-Z</option>
+      </select>
+    </div>
+
+    <!-- Jobs Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div 
+        *ngFor="let job of jobs$ | async"
+        class="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden border border-gray-200 relative"
+      >
+       <!-- Badge NOUVEAU (si publié dans les 7 derniers jours) -->
+        <div 
+          *ngIf="job.publication_date"
+          class=" top-4 left-4 z-10 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md"
+        >
+          {{job.publication_date}}
+        </div>
+        <!-- Bouton Favoris (Coeur) -->
+        <button 
+          (click)="toggleFavorite(job)"
+          class="absolute top-4 right-4 z-10 p-2 rounded-full bg-white shadow-md hover:shadow-lg transition-all duration-200 group"
+          [class.bg-red-50]="job.isFavorite"
+        >
+          <svg 
+            class="w-6 h-6 transition-all duration-200"
+            [class.text-gray-400]="!job.isFavorite"
+            [class.text-red-500]="job.isFavorite"
+            [class.fill-red-500]="job.isFavorite"
+            [class.scale-110]="job.isFavorite"
+            fill="none" 
+            stroke="currentColor" 
+            viewBox="0 0 24 24"
+          >
+            <path 
+              stroke-linecap="round" 
+              stroke-linejoin="round" 
+              stroke-width="2" 
+              d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+            />
+          </svg>
+        </button>
+
+        <!-- Card Header -->
+        <div class="p-6 border-b border-gray-100 bg-gradient-to-r from-indigo-50 to-purple-50 pr-16">
+          <h2 class="text-xl font-semibold text-gray-900 mb-3 line-clamp-2">
+            {{ job.name }}
+          </h2>
+          <div class="flex items-center gap-2">
+            <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+            </svg>
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-indigo-100 text-indigo-800">
+              {{ job.company.name }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Card Content -->
+        <div class="p-6">
+          <div 
+            [innerHTML]="job.contents" 
+            class="text-gray-700 text-sm leading-relaxed mb-6 line-clamp-4 prose prose-sm max-w-none"
+          ></div>
+        </div>
+
+        <!-- Card Footer - Boutons -->
+        <div class="px-6 pb-6 flex gap-3">
+          <!-- Bouton Candidater -->
+          <button
+            (click)="applyToJob(job)"
+            class="flex-1 flex items-center justify-center px-4 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg transition-colors duration-200 gap-2 group"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            </svg>
+            Candidater
+          </button>
+
+          <!-- Bouton Voir l'offre -->
+          <a 
+            [href]="job.refs.landing_page" 
+            target="_blank"
+            class="flex items-center justify-center px-4 py-3 bg-white hover:bg-gray-50 text-indigo-600 font-medium rounded-lg border-2 border-indigo-600 transition-colors duration-200 gap-2 group"
+          >
+            Détails
+            <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+<app-pagination
+  [total]="total"
+  [page]="page"
+  (pageChange)="onPageChange($event)">
+</app-pagination>
+
+    <!-- Empty State -->
+    <div  class="text-center py-12">
+      <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+      </svg>
+      <h3 class="mt-2 text-sm font-medium text-gray-900">Aucune offre trouvée</h3>
+      <p class="mt-1 text-sm text-gray-500">Essayez de modifier vos critères de recherche.</p>
+    </div>
+  </div>
+</div>

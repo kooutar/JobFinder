@@ -1,9 +1,9 @@
 {
   "name": "job-finder",
   "version": "0.0.0",
-  "scripts": {
+  "scripts": { 
     "ng": "ng",
-    "start": "ng serve --proxy-config proxy.config.json",
+    "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",

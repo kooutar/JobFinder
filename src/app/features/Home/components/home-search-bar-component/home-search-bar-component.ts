@@ -4,22 +4,21 @@ import { Router } from '@angular/router';
 import { FeatureCardComponent } from '../../feature-card/feature-card-component/feature-card-component';
 import { Navbar } from '../../../../shared/components/navbar/navbar';
 import { SharedModule } from '../../../../shared/shared/shared-module';
-import { JobOfferDisplay } from '../../../jobs/interfaces/job-offer.model';
+
 import { Subject, takeUntil } from 'rxjs';
-import { JobService } from '../../../jobs/services/job-service';
-import { JobCardComponent } from '../../../jobs/components/job-card-component/job-card-component';
+
 import { EventEmitter } from 'stream';
 
 @Component({
   selector: 'app-home-search-bar-component',
-  imports: [SharedModule,JobCardComponent,FeatureCardComponent],
+  imports: [SharedModule,FeatureCardComponent],
   templateUrl: './home-search-bar-component.html',
   styleUrl: './home-search-bar-component.css',
 })
 export class HomeSearchBarComponent implements OnInit , OnDestroy {
   
   // Featured jobs to display on home page
-  featuredJobs: JobOfferDisplay[] = [];
+  
   isLoadingJobs = false;
   jobsError = '';
 
@@ -71,7 +70,7 @@ export class HomeSearchBarComponent implements OnInit , OnDestroy {
 
   constructor(
     private router: Router,
-    private jobService: JobService
+   
   ) {}
 
   ngOnInit(): void {
@@ -91,28 +90,6 @@ export class HomeSearchBarComponent implements OnInit , OnDestroy {
     this.jobsError = '';
     this.currentPage = page;
 
-    this.jobService.getJobsForDisplay(page)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe({
-        next: (response) => {
-          this.featuredJobs = response.jobs;
-          this.totalPages = response.pagination.totalPages;
-          this.isLoadingJobs = false;
-          
-          // Scroll to top of jobs section if not first load
-          if (page > 1) {
-             const jobsSection = document.getElementById('featured-jobs');
-             if (jobsSection) {
-               jobsSection.scrollIntoView({ behavior: 'smooth' });
-             }
-          }
-        },
-        error: (error: any) => {
-          console.error('Error loading jobs:', error);
-          this.jobsError = 'Failed to load jobs. Please try again later.';
-          this.isLoadingJobs = false;
-        }
-      });
   }
 
   onPageChange(page: number): void {
@@ -170,10 +147,7 @@ export class HomeSearchBarComponent implements OnInit , OnDestroy {
   /**
    * Navigate to job details
    */
-  viewJobDetails(job: JobOfferDisplay): void {
-    // Open job URL in new tab
-    window.open(job.url, '_blank');
-  }
+  
 
   /**
    * Handle popular search click
