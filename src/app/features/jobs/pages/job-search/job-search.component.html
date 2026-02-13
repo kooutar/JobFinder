@@ -1,0 +1,75 @@
+<div class="search-container">
+  <div class="search-header">
+    <h1>Find Your Dream Job</h1>
+    <div class="search-box">
+      <div class="input-group">
+        <i class="fas fa-search"></i>
+        <input 
+          type="text" 
+          [(ngModel)]="keyword" 
+          (keyup.enter)="onSearch()"
+          placeholder="Job title, keywords, or company">
+      </div>
+      <div class="input-group">
+        <i class="fas fa-map-marker-alt"></i>
+        <input 
+          type="text" 
+          [(ngModel)]="location" 
+          (keyup.enter)="onSearch()"
+          placeholder="City, state, or zip code">
+      </div>
+      <button (click)="onSearch()" class="search-btn">Search</button>
+    </div>
+  </div>
+
+  <div class="results-container">
+    <div *ngIf="isLoading" class="loading-state">
+      <div class="spinner"></div>
+      <p>Searching for jobs...</p>
+    </div>
+
+    <div *ngIf="error" class="error-state">
+      <p>{{ error }}</p>
+      <button (click)="performSearch()">Try Again</button>
+    </div>
+
+    <div *ngIf="!isLoading && !error">
+      <div class="results-header">
+        <p>{{ totalItems }} jobs found</p>
+      </div>
+
+      <div class="jobs-list" >
+        
+      </div>
+
+      <ng-template #noJobs>
+        <div class="no-results">
+          <p>No jobs found matching your criteria.</p>
+          <p>Try adjusting your search terms or location.</p>
+        </div>
+      </ng-template>
+
+      <!-- Pagination -->
+      <div class="pagination" *ngIf="totalPages > 1">
+        <button 
+          [disabled]="currentPage === 1"
+          (click)="onPageChange(currentPage - 1)">
+          Previous
+        </button>
+        
+        <button 
+          *ngFor="let page of pages" 
+          [class.active]="page === currentPage"
+          (click)="onPageChange(page)">
+          {{ page }}
+        </button>
+        
+        <button 
+          [disabled]="currentPage === totalPages"
+          (click)="onPageChange(currentPage + 1)">
+          Next
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
