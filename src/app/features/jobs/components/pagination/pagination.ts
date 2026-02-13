@@ -25,6 +25,7 @@ export class Pagination {
 
   next() {
     if (this.page < this.totalPages) {
+      console.log('Next page:', this.page + 1);
       this.pageChange.emit(this.page + 1);
     }
   }

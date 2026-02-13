@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Observable, Subject, combineLatest } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, combineLatest } from 'rxjs';
 import { debounceTime, map, startWith, switchMap, tap } from 'rxjs/operators';
 import { Job } from '../../interfaces/job.model';
 import { JobService } from '../../services/job-service';
@@ -14,57 +14,60 @@ import { Pagination } from '../pagination/pagination';
 })
 export class JobListComponent {
 
-  jobs$!: Observable<Job[]>;
+   jobs$!: Observable<Job[]>;
 
   total = 0;
-  itemsPerPage = 10;
+  itemsPerPage = 20;
+  page = 1;
 
-  private page$ = new Subject<number>();
-  private search$ = new Subject<string>();
+  private page$ = new BehaviorSubject<number>(1);
+  private search$ = new BehaviorSubject<string>('');
 
   constructor(private jobService: JobService) {}
 
-  ngOnInit(): void {
-    this.jobs$ = combineLatest([
-      this.page$.pipe(startWith(1)),
-      this.search$.pipe(startWith(''))
-    ]).pipe(
-      debounceTime(300),
-      switchMap(([page, search]) =>
-        this.jobService.getAllJobs(page).pipe(
-          tap(res => this.total = res.total),
-          map(res =>
-            res.results
-              .filter(job =>
-                job.name.toLowerCase().includes(search.toLowerCase())
-              )
-              .sort(
-                (a, b) =>
-                  new Date(b.publication_date).getTime()
-                  - new Date(a.publication_date).getTime()
-              )
-          )
-        )
-      )
+ngOnInit(): void {
+    this.jobs$ = this.page$.pipe(
+      tap(page => {
+        console.log('🔵 page$ emit:', page); // Debug
+        this.page = page;
+      }),
+      switchMap(page => {
+        console.log('🟢 Appel API avec page:', page); // Debug
+        return this.jobService.getAllJobs(page).pipe(
+          tap(res => {
+            console.log('🟡 Réponse API:', res); // Debug
+            this.total = res.total;
+          }),
+          map(res => res.results)
+        );
+      })
     );
   }
 
+// Recherche locale sans toucher à la pagination
+searchLocally(term: string) {
+  this.jobs$ = this.jobs$.pipe(
+    map(jobs => jobs.filter(job => 
+      job.name.toLowerCase().includes(term.toLowerCase())
+    ))
+  );
+}
+
   onSearch(event: Event) {
     const value = (event.target as HTMLInputElement).value;
-    this.page$.next(1);           // reset pagination
+    this.page$.next(1);        // reset pagination
     this.search$.next(value);
   }
 
   onPageChange(page: number) {
-    this.page$.next(page);
+    this.page$.next(page);    // 🔥 une seule source
   }
 
   toggleFavorite(job: any): void {
     job.isFavorite = !job.isFavorite;
-    console.log('Favoris toggled:', job.name, job.isFavorite);
   }
 
   applyToJob(job: any): void {
-    console.log('Candidature pour:', job.name);
+    console.log('Apply:', job.name);
   }
 }
