@@ -5,6 +5,10 @@ import { Job } from '../../interfaces/job.model';
 import { JobService } from '../../services/job-service';
 import { SharedModule } from '../../../../shared/shared/shared-module';
 import { Pagination } from '../pagination/pagination';
+import { Store } from '@ngrx/store';
+import { selectAllFavorites } from '../../../favorites/favorites.selectors';
+import { addFavorite, removeFavorite } from '../../../favorites/favorites.actions';
+
 
 @Component({
   selector: 'app-job-list-component',
@@ -23,26 +27,32 @@ export class JobListComponent {
   private page$ = new BehaviorSubject<number>(1);
   private search$ = new BehaviorSubject<string>('');
 
-  constructor(private jobService: JobService) {}
+  constructor(private jobService: JobService,  private store: Store) {}
 
 ngOnInit(): void {
-    this.jobs$ = this.page$.pipe(
-      tap(page => {
-        console.log('🔵 page$ emit:', page); // Debug
-        this.page = page;
-      }),
-      switchMap(page => {
-        console.log('🟢 Appel API avec page:', page); // Debug
-        return this.jobService.getAllJobs(page).pipe(
-          tap(res => {
-            console.log('🟡 Réponse API:', res); // Debug
-            this.total = res.total;
-          }),
-          map(res => res.results)
-        );
-      })
-    );
-  }
+  const apiJobs$ = this.page$.pipe(
+    tap(page => (this.page = page)),
+    switchMap(page =>
+      this.jobService.getAllJobs(page).pipe(
+        tap(res => (this.total = res.total)),
+        map(res => res.results)
+      )
+    )
+  );
+
+  this.jobs$ = combineLatest([
+    apiJobs$,
+    this.store.select(selectAllFavorites)
+  ]).pipe(
+    map(([jobs, favorites]) =>
+      jobs.map(job => ({
+        ...job,
+        isFavorite: favorites.some(fav => fav.id === job.id)
+      }))
+    )
+  );
+}
+
 
 // Recherche locale sans toucher à la pagination
 searchLocally(term: string) {
@@ -63,9 +73,13 @@ searchLocally(term: string) {
     this.page$.next(page);    // 🔥 une seule source
   }
 
-  toggleFavorite(job: any): void {
-    job.isFavorite = !job.isFavorite;
+  toggleFavorite(job: Job): void {
+  if (job.isFavorite) {
+    this.store.dispatch(removeFavorite({ jobId: job.id }));
+  } else {
+    this.store.dispatch(addFavorite({ job }));
   }
+}
 
   applyToJob(job: any): void {
     console.log('Apply:', job.name);
