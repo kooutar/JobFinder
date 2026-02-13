@@ -32,8 +32,9 @@
       <div class="hidden md:flex items-center gap-3">
         <!-- Boutons Login/Signup - affichés si non connecté -->
         <ng-container *ngIf="!isLoggedIn">
-          <a routerLink="/auth/login" class="btn-secondary btn-sm"> Login </a>
-          <a routerLink="/auth/register" class="btn-primary btn-sm"> Sign Up </a>
+          <button [routerLink]="'/auth/login'" class="btn-secondary btn-sm">Login</button>
+          <button [routerLink]="'/auth/register'" class="btn-primary btn-sm">Sign Up</button>
+
         </ng-container>
         
         <!-- Bouton Logout - affiché si connecté -->
