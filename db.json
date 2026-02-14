@@ -3,24 +3,59 @@
     {
       "id": "1",
       "name": "Kaoutar",
-      "email": "kaoutar@test.com"
+      "email": "kaoutar@test.com",
+      "favorites": []
     },
     {
       "id": "2",
       "name": "Ahmed",
-      "email": "ahmed@test.com"
+      "email": "ahmed@test.com",
+      "favorites": []
     },
     {
       "id": "7406",
       "name": "salma",
       "email": "oussama3@test.com",
-      "password": "salma123456"
+      "password": "salma123456",
+      "favorites": [
+        17766748,
+        18054997
+      ]
     },
     {
       "id": "0c4b",
       "name": "salma",
       "email": "kaoutar@gmail.com",
-      "password": "123456789"
+      "password": "123456789",
+      "favorites": []
+    },
+    {
+      "id": "1bee",
+      "name": "Sage Bolton",
+      "email": "tidydez@mailinator.com",
+      "password": "Pa$$w0rd!",
+      "favorites": []
+    },
+    {
+      "id": "fa5b",
+      "name": "Sasha Ford",
+      "email": "malylawy@mailinator.com",
+      "password": "Pa$$w0rd!",
+      "favorites": []
+    },
+    {
+      "id": "e867",
+      "name": "Ivy Dickson",
+      "email": "fifotyca@mailinator.com",
+      "password": "Pa$$w0rd!",
+      "favorites": []
+    },
+    {
+      "id": "8c09",
+      "name": "Julie Rosales",
+      "email": "fopisezuqe@mailinator.com",
+      "password": "Pa$$w0rd!",
+      "favorites": []
     }
   ]
 }
