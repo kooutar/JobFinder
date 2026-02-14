@@ -7,16 +7,19 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
 import { provideStore } from '@ngrx/store';
 import { favoritesReducer } from './features/favorites/favorites.reducer';
 import { provideEffects } from '@ngrx/effects';
+import { FavoritesEffects } from './features/favorites/favorites.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes), provideClientHydration(withEventReplay()),
     provideHttpClient(withFetch()),
-    // ✅ NgRx Store
+     // ✅ NgRx Store
     provideStore({
-        favorites: favoritesReducer
+      favorites: favoritesReducer
     }),
-    provideEffects()
+
+    // ✅ NgRx Effects
+    provideEffects([FavoritesEffects])
 ]
 };

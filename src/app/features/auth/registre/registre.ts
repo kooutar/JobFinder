@@ -57,7 +57,7 @@ export class Registre {
 
     this.isLoading.set(true);
 
-    this.authService.register({ name, email, password }).subscribe({
+    this.authService.register({ name, email, password, favorites: [] }).subscribe({
       next: (response) => {
         this.isLoading.set(false);
         this.successMessage.set('Registration successful! Redirecting to login...');

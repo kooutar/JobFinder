@@ -1,14 +1,38 @@
-import { createSelector, createFeatureSelector } from '@ngrx/store';
+import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { FavoritesState } from './favorites.reducer';
 
-export const selectFavoritesState = createFeatureSelector<FavoritesState>('favorites');
+/**
+ * Feature key (doit matcher celui du Store)
+ */
+export const FAVORITES_FEATURE_KEY = 'favorites';
 
-export const selectAllFavorites = createSelector(
+/**
+ * Sélecteur racine du feature
+ */
+export const selectFavoritesState =
+  createFeatureSelector<FavoritesState>(FAVORITES_FEATURE_KEY);
+
+/**
+ * Tous les favoris (IDs)
+ */
+export const selectFavorites = createSelector(
   selectFavoritesState,
-  state => state.favorites
+  (state) => state.favorites
 );
 
-export const selectIsFavorite = (jobId: string) => createSelector(
-  selectFavoritesState,
-  state => state.favorites.some(job => job.id === +jobId)
+/**
+ * Nombre de favoris ❤️
+ */
+export const selectFavoritesCount = createSelector(
+  selectFavorites,
+  (favorites) => favorites.length
 );
+
+/**
+ * Vérifier si un job est favori
+ */
+export const selectIsFavorite = (jobId: number) =>
+  createSelector(
+    selectFavorites,
+    (favorites) => favorites.includes(jobId)
+  );
