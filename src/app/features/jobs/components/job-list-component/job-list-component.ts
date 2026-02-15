@@ -9,6 +9,8 @@ import { Store } from '@ngrx/store';
 import { selectFavorites } from '../../../favorites/favorites.selectors';
 import { addFavorite, removeFavorite, loadFavorites, logout } from '../../../favorites/favorites.actions';
 import { AuthService } from '../../../auth/services/auth-service';
+import { addApplication, loadApplications } from '../../../applications/pages/application.actions';
+import { selectApplications } from '../../../applications/pages/application.selectors';
 
 @Component({
   selector: 'app-job-list-component',
@@ -40,8 +42,9 @@ export class JobListComponent implements OnInit {
     this.userId = this.authService.getCurrentUser()?.id ?? null;
 
     if (this.userId) {
-      // ✅ Charger les favoris depuis JSON Server
+      // ✅ Charger les favoris et les candidatures depuis JSON Server
       this.store.dispatch(loadFavorites({ userId: this.userId }));
+      this.store.dispatch(loadApplications({ userId: this.userId }));
     }
 
     const apiJobs$ = this.page$.pipe(
@@ -56,16 +59,18 @@ export class JobListComponent implements OnInit {
 
     // ✅ Combiner les jobs et les favoris pour afficher le cœur
     this.jobs$ = combineLatest([
-      apiJobs$,
-      this.store.select(selectFavorites)
-    ]).pipe(
-      map(([jobs, favorites]) =>
-        jobs.map(job => ({
-          ...job,
-          isFavorite: favorites.includes(job.id)
-        }))
-      )
-    );
+  apiJobs$,
+  this.store.select(selectFavorites),
+  this.store.select(selectApplications) // ✅
+]).pipe(
+  map(([jobs, favorites, applications]) =>
+    jobs.map(job => ({
+      ...job,
+      isFavorite: favorites.includes(job.id),
+      hasApplied: applications.includes(job.id) // ✅ LOGIQUE MÉTIER
+    }))
+  )
+);
   }
 
   // Recherche locale sans toucher à la pagination
@@ -103,8 +108,13 @@ export class JobListComponent implements OnInit {
     }
   }
 
-  applyToJob(job: any): void {
-    console.log('Apply:', job.name);
+  applyToJob(job: Job): void {
+    if (!this.userId) return;
+    if (job.hasApplied) return;
+    this.store.dispatch(addApplication({
+      userId: this.userId,
+      jobId: job.id
+    }));
   }
   
 

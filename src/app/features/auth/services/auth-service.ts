@@ -26,7 +26,7 @@ export class AuthService {
     return !!localStorage.getItem('authToken');
   }
 
-  register(user: { name: string; email: string; password: string ; favorites: any[] }): Observable<any> {
+  register(user: { name: string; email: string; password: string ; favorites: any[] ; applications: any[] }): Observable<any> {
     return this.httpClient.post<any>(this.API_URL, user);
   }
 

@@ -8,6 +8,8 @@ import { provideStore } from '@ngrx/store';
 import { favoritesReducer } from './features/favorites/favorites.reducer';
 import { provideEffects } from '@ngrx/effects';
 import { FavoritesEffects } from './features/favorites/favorites.effects';
+import { applicationsReducer } from './features/applications/pages/application.reducer';
+import { ApplicationsEffects } from './features/applications/pages/application.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,10 +18,11 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withFetch()),
      // ✅ NgRx Store
     provideStore({
-      favorites: favoritesReducer
+      favorites: favoritesReducer,
+      applications: applicationsReducer,
     }),
 
     // ✅ NgRx Effects
-    provideEffects([FavoritesEffects])
+    provideEffects([FavoritesEffects, ApplicationsEffects]),
 ]
 };

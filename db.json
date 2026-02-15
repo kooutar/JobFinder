@@ -4,13 +4,15 @@
       "id": "1",
       "name": "Kaoutar",
       "email": "kaoutar@test.com",
-      "favorites": []
+      "favorites": [],
+      "applications": []
     },
     {
       "id": "2",
       "name": "Ahmed",
       "email": "ahmed@test.com",
-      "favorites": []
+      "favorites": [],
+      "applications": []
     },
     {
       "id": "7406",
@@ -20,6 +22,14 @@
       "favorites": [
         17766748,
         18054997
+      ],
+      "applications": [
+        21166594,
+        21166594,
+        21170794,
+        21170794,
+        19225596,
+        19225596
       ]
     },
     {
@@ -27,35 +37,40 @@
       "name": "salma",
       "email": "kaoutar@gmail.com",
       "password": "123456789",
-      "favorites": []
+      "favorites": [],
+      "applications": []
     },
     {
       "id": "1bee",
       "name": "Sage Bolton",
       "email": "tidydez@mailinator.com",
       "password": "Pa$$w0rd!",
-      "favorites": []
+      "favorites": [],
+      "applications": []
     },
     {
       "id": "fa5b",
       "name": "Sasha Ford",
       "email": "malylawy@mailinator.com",
       "password": "Pa$$w0rd!",
-      "favorites": []
+      "favorites": [],
+      "applications": []
     },
     {
       "id": "e867",
       "name": "Ivy Dickson",
       "email": "fifotyca@mailinator.com",
       "password": "Pa$$w0rd!",
-      "favorites": []
+      "favorites": [],
+      "applications": []
     },
     {
       "id": "8c09",
       "name": "Julie Rosales",
       "email": "fopisezuqe@mailinator.com",
       "password": "Pa$$w0rd!",
-      "favorites": []
+      "favorites": [],
+      "applications": []
     }
   ]
 }

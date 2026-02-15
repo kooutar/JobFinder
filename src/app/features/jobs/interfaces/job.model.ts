@@ -1,4 +1,5 @@
 export interface Job {
+hasApplied: boolean;
   id: number;
   name: string;
   contents: string; 
