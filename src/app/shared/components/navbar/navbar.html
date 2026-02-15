@@ -19,12 +19,13 @@
         <ng-container *ngIf="isLoggedIn">
           <a routerLink="/favorites" class="nav-link">
             My Favorites
-            <span class="badge badge-blue ml-1">{{ favoritesCount }}</span>
+            <span class="badge badge-blue ml-1">{{ favoritesCount$ | async }}</span>
           </a>
           <a routerLink="/applications" class="nav-link">
             My Applications
-            <span class="badge badge-green ml-1">{{ applicationsCount }}</span>
+            <span class="badge badge-green ml-1">{{ applicationsCount$ | async }}</span>
           </a>
+          <a routerLink="/profile" class="nav-link">My Profile</a>
         </ng-container>
       </nav>
 
@@ -64,13 +65,13 @@
         <a routerLink="/favorites" (click)="toggleMobileMenu()" class="mobile-nav-link">
           <span class="material-symbols-outlined">favorite</span>
           My Favorites
-          <span class="badge badge-blue ml-auto">{{ favoritesCount }}</span>
+          <span class="badge badge-blue ml-auto">{{ favoritesCount$ | async }}</span>
         </a>
 
         <a routerLink="/applications" (click)="toggleMobileMenu()" class="mobile-nav-link">
           <span class="material-symbols-outlined">description</span>
           My Applications
-          <span class="badge badge-green ml-auto">{{ applicationsCount }}</span>
+          <span class="badge badge-green ml-auto">{{ applicationsCount$ | async }}</span>
         </a>
 
         <a routerLink="/profile" (click)="toggleMobileMenu()" class="mobile-nav-link">

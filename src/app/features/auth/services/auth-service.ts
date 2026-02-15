@@ -67,4 +67,25 @@ export class AuthService {
     const user = localStorage.getItem('currentUser');
     return user ? JSON.parse(user) : null;
   }
+
+  /**
+   * Met à jour les infos de l'utilisateur (nom, email, mot de passe optionnel).
+   * Met à jour le currentUser en localStorage après succès.
+   */
+  updateUser(
+    id: string | number,
+    data: { name?: string; email?: string; password?: string }
+  ): Observable<any> {
+    return this.httpClient.patch<any>(`${this.API_URL}/${id}`, data).pipe(
+      tap((updatedUser) => {
+        if (this.isBrowser) {
+          const current = this.getCurrentUser();
+          if (current && String(current.id) === String(id)) {
+            const { password: _p, ...safe } = updatedUser;
+            this.setCurrentUser({ ...current, ...safe });
+          }
+        }
+      })
+    );
+  }
 }

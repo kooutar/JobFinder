@@ -12,9 +12,11 @@ export class JobService {
 
   constructor(private http: HttpClient){}
 
-  getAllJobs(page=1){
+  getAllJobs(page = 1) {
     return this.http.get<PaginatedResponse<Job>>(`${this.apiUrl}?page=${page}`);
-
   }
-  
+
+  getJobById(id: number) {
+    return this.http.get<Job>(`${this.apiUrl}/${id}`);
+  }
 }

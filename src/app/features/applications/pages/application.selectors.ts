@@ -9,12 +9,16 @@ export const selectApplications = createSelector(
   state => state.applications
 );
 
+export const selectApplicationsCount = createSelector(
+  selectApplications,
+  (applications) => applications.length
+);
+
 export const selectHasApplied = (jobId: number) =>
   createSelector(
     selectApplications,
     (applications) => applications.includes(jobId)
   );
-// Sélecteur pour toutes les applications du user connecté
 
   
 
